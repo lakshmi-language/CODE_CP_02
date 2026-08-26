@@ -1,0 +1,121 @@
+* { box-sizing: border-box; }
+
+body {
+    font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    margin: 0;
+    background: #f0f2f5;
+    color: #1c1e21;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 30px;
+    background: #1877f2;
+    color: #fff;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.logo { font-size: 22px; font-weight: bold; color: #fff; text-decoration: none; }
+
+.nav-links { display: flex; align-items: center; gap: 16px; }
+
+.nav-links a, .link-button {
+    color: #fff;
+    text-decoration: none;
+    background: none;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+}
+
+.nav-links a:hover, .link-button:hover { text-decoration: underline; }
+
+.container { max-width: 680px; margin: 30px auto; padding: 0 20px; }
+
+.new-post-box, .post-card, .profile-header, .comment-form {
+    background: #fff;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.new-post-box textarea, .checkout-form input, .auth-form input, .auth-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.btn {
+    display: inline-block;
+    background: #1877f2;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn.following { background: #6b7280; }
+
+.btn-small {
+    padding: 5px 10px;
+    font-size: 13px;
+    border: none;
+    border-radius: 6px;
+    background: #f0f2f5;
+    color: #333;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-small.liked { background: #fde2e2; color: #c0392b; }
+.btn-small.danger { background: #fee2e2; color: #991b1b; }
+
+.inline-form { display: inline; margin: 0; }
+
+.post-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+
+.post-author { font-weight: bold; color: #1c1e21; text-decoration: none; }
+
+.post-time { color: #65676b; font-size: 12px; }
+
+.post-link { text-decoration: none; color: inherit; }
+
+.post-content { white-space: pre-wrap; margin: 6px 0; }
+
+.post-image { max-width: 100%; border-radius: 8px; margin-top: 8px; }
+
+.post-actions { display: flex; gap: 10px; margin-top: 10px; }
+
+.avatar-small, .avatar-small.placeholder {
+    width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: #ccd0d5;
+}
+
+.avatar-large, .avatar-large.placeholder {
+    width: 96px; height: 96px; border-radius: 50%; object-fit: cover; background: #ccd0d5;
+}
+
+.profile-header { display: flex; gap: 20px; align-items: flex-start; }
+
+.profile-stats { display: flex; gap: 16px; margin: 10px 0; color: #444; }
+
+.comment-list { background: #fff; border-radius: 10px; padding: 10px 16px; }
+
+.comment { padding: 8px 0; border-bottom: 1px solid #eee; }
+.comment:last-child { border-bottom: none; }
+
+.messages { list-style: none; padding: 0; }
+
+.message { padding: 10px 14px; border-radius: 6px; margin-bottom: 8px; }
+.message.success { background: #d1fae5; color: #065f46; }
+.message.error { background: #fee2e2; color: #991b1b; }
+.message.info { background: #dbeafe; color: #1e40af; }

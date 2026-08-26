@@ -1,0 +1,12 @@
+{% extends "social/base.html" %}
+{% block title %}Login - MiniSocial{% endblock %}
+
+{% block content %}
+    <h1>Login</h1>
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Login</button>
+    </form>
+    <p>Don't have an account? <a href="{% url 'register' %}">Register here</a>.</p>
+{% endblock %}
