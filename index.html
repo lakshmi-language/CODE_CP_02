@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseSocial - Mini Social Media Platform</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- App Wrapper -->
+  <div class="app-layout">
+    
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <span class="brand-title">PulseSocial</span>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-item active" data-view="home">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span>Home</span>
+        </button>
+
+        <button class="nav-item" data-view="explore">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <span>Explore</span>
+        </button>
+
+        <button class="nav-item" data-view="notifications">
+          <div class="nav-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <span id="unreadBadge" class="badge hidden">0</span>
+          </div>
+          <span>Notifications</span>
+        </button>
+
+        <button class="nav-item" data-view="messages">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Messages</span>
+        </button>
+
+        <button class="nav-item" data-view="bookmarks">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Bookmarks</span>
+        </button>
+
+        <button class="nav-item" data-view="profile" id="sidebarProfileBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span>Profile</span>
+        </button>
+      </nav>
+
+      <button id="openPostModalBtn" class="btn btn-primary create-post-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        <span>Post</span>
+      </button>
+
+      <div class="sidebar-bottom">
+        <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Light/Dark Theme">
+          <svg id="themeIconSun" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg id="themeIconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+
+        <div class="user-card" id="userSwitcherTrigger">
+          <img id="activeUserAvatar" src="" alt="Avatar" class="avatar-sm">
+          <div class="user-info">
+            <span id="activeUserName" class="user-name">User Name</span>
+            <span id="activeUserHandle" class="user-handle">@handle</span>
+          </div>
+          <svg class="user-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT FEED -->
+    <main class="main-content">
+      <!-- Sticky Top Header -->
+      <header class="top-header">
+        <h2 id="viewTitle" class="view-title">Home Feed</h2>
+        <div class="header-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="searchInput" placeholder="Search posts, users, or #hashtags...">
+          <button id="clearSearchBtn" class="clear-search hidden">✕</button>
+        </div>
+      </header>
+
+      <!-- Sub Tabs (For You, Following, Trending) -->
+      <div id="feedTabs" class="feed-tabs">
+        <button class="tab-item active" data-feed="for-you">For You</button>
+        <button class="tab-item" data-feed="following">Following</button>
+        <button class="tab-item" data-feed="trending">Trending</button>
+      </div>
+
+      <!-- Composer Box (Inline) -->
+      <div id="inlineComposer" class="composer-box">
+        <img id="composerUserAvatar" src="" alt="User Avatar" class="avatar-md">
+        <div class="composer-body">
+          <textarea id="composerInput" placeholder="What's happening?" maxlength="280" rows="3"></textarea>
+          
+          <!-- Image preview container -->
+          <div id="imagePreviewContainer" class="image-preview-container hidden">
+            <img id="imagePreview" src="" alt="Image Preview">
+            <button id="removeImageBtn" class="remove-image-btn">✕</button>
+          </div>
+
+          <div class="composer-footer">
+            <div class="composer-tools">
+              <button id="attachImageBtn" class="icon-btn" title="Add image URL">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21 15 16 10 5 21"/>
+                </svg>
+              </button>
+              <button id="addHashtagBtn" class="icon-btn" title="Add hashtag">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="4" y1="9" x2="20" y2="9"/>
+                  <line x1="4" y1="15" x2="20" y2="15"/>
+                  <line x1="10" y1="3" x2="8" y2="21"/>
+                  <line x1="16" y1="3" x2="14" y2="21"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="composer-actions">
+              <span id="charCounter" class="char-counter">280</span>
+              <button id="submitPostBtn" class="btn btn-primary" disabled>Post</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feed Container -->
+      <section id="postsContainer" class="posts-container">
+        <!-- Dynamic Post Cards will render here -->
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+        </div>
+      </section>
+
+      <!-- Profile View Container (hidden by default) -->
+      <section id="profileView" class="profile-view hidden">
+        <div class="profile-header">
+          <div class="banner-box">
+            <img id="profileBanner" src="" alt="Cover Banner">
+          </div>
+          <div class="profile-avatar-row">
+            <img id="profileAvatar" src="" alt="Avatar" class="avatar-lg">
+            <button id="profileFollowBtn" class="btn btn-outline">Follow</button>
+          </div>
+          <div class="profile-info-details">
+            <h3 id="profileName" class="profile-name">User Name</h3>
+            <span id="profileHandle" class="profile-handle">@handle</span>
+            <p id="profileBio" class="profile-bio">Bio description...</p>
+            
+            <div class="profile-stats-row">
+              <span><strong id="profileFollowingCount">0</strong> Following</span>
+              <span><strong id="profileFollowersCount">0</strong> Followers</span>
+              <span><strong id="profilePostsCount">0</strong> Posts</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-tabs">
+          <button class="profile-tab-item active" data-ptab="posts">Posts</button>
+          <button class="profile-tab-item" data-ptab="saved">Saved</button>
+        </div>
+
+        <div id="profilePostsContainer" class="posts-container"></div>
+      </section>
+
+      <!-- Messages View Container (hidden by default) -->
+      <section id="messagesView" class="messages-view hidden">
+        <div class="messages-layout">
+          <div class="contacts-list" id="contactsList">
+            <!-- Dynamic contact items -->
+          </div>
+          <div class="chat-area" id="chatArea">
+            <div class="chat-header hidden" id="chatHeader">
+              <img id="chatContactAvatar" src="" class="avatar-sm" alt="Avatar">
+              <div>
+                <h4 id="chatContactName">Select a conversation</h4>
+                <span id="chatContactHandle" class="user-handle">@handle</span>
+              </div>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+              <div class="empty-state">Select a contact on the left to start messaging</div>
+            </div>
+            <div class="chat-input-row hidden" id="chatInputRow">
+              <input type="text" id="chatInput" placeholder="Type a message...">
+              <button id="sendMessageBtn" class="btn btn-primary">Send</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Notifications View Container (hidden by default) -->
+      <section id="notificationsView" class="notifications-view hidden">
+        <div class="notifications-header">
+          <h3>Activity Notifications</h3>
+          <button id="markAllReadBtn" class="btn btn-outline btn-sm">Mark all as read</button>
+        </div>
+        <div id="notificationsList" class="notifications-list"></div>
+      </section>
+    </main>
+
+    <!-- RIGHT SIDEBAR (Widgets) -->
+    <aside class="widgets-sidebar">
+      <!-- Trending Widget -->
+      <div class="widget-card">
+        <h3 class="widget-title">Trending Topics</h3>
+        <ul class="trending-list" id="trendingList">
+          <li data-tag="webdev">
+            <span class="tag-title">#webdev</span>
+            <span class="tag-meta">12.4K posts</span>
+          </li>
+          <li data-tag="ai2026">
+            <span class="tag-title">#ai2026</span>
+            <span class="tag-meta">48.9K posts</span>
+          </li>
+          <li data-tag="design">
+            <span class="tag-title">#design</span>
+            <span class="tag-meta">8.2K posts</span>
+          </li>
+          <li data-tag="cybersecurity">
+            <span class="tag-title">#cybersecurity</span>
+            <span class="tag-meta">15.1K posts</span>
+          </li>
+          <li data-tag="tech">
+            <span class="tag-title">#tech</span>
+            <span class="tag-meta">32.7K posts</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Who to Follow Widget -->
+      <div class="widget-card">
+        <h3 class="widget-title">Who to Follow</h3>
+        <div class="follow-suggestions" id="whoToFollowList">
+          <!-- Dynamic who to follow cards -->
+        </div>
+      </div>
+
+      <!-- Footer Info -->
+      <div class="widget-footer">
+        <p>PulseSocial Platform © 2026</p>
+        <p>Built with Pure HTML5, CSS3 & Python</p>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- MODALS -->
+
+  <!-- User Switcher Modal -->
+  <div id="userModal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Switch Account</h3>
+        <button class="close-modal-btn" data-close="userModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-subtitle">Choose an active profile to interact with the feed as:</p>
+        <div id="usersList" class="users-list-grid"></div>
+
+        <hr class="divider">
+
+        <h4>Create New Profile</h4>
+        <form id="createUserForm" class="create-user-form">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="newUserName" placeholder="e.g. Jordan Smith" required>
+          </div>
+          <div class="form-group">
+            <label>Handle</label>
+            <input type="text" id="newUserHandle" placeholder="e.g. jordan_tech" required>
+          </div>
+          <div class="form-group">
+            <label>Bio</label>
+            <input type="text" id="newUserBio" placeholder="Short bio...">
+          </div>
+          <div class="form-group">
+            <label>Avatar URL (optional)</label>
+            <input type="url" id="newUserAvatar" placeholder="https://...">
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Register & Switch</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comments Modal -->
+  <div id="commentsModal" class="modal-overlay hidden">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h3>Comments</h3>
+        <button class="close-modal-btn" data-close="commentsModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="modalTargetPost" class="modal-target-post"></div>
+        <div id="commentsList" class="comments-list"></div>
+        
+        <div class="comment-composer">
+          <input type="text" id="commentInput" placeholder="Write a comment...">
+          <button id="submitCommentBtn" class="btn btn-primary">Reply</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image URL Prompt Modal -->
+  <div id="imageUrlModal" class="modal-overlay hidden">
+    <div class="modal-content modal-sm">
+      <div class="modal-header">
+        <h3>Insert Image URL</h3>
+        <button class="close-modal-btn" data-close="imageUrlModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-subtitle">Paste a web URL for your post image or select a preset sample below:</p>
+        <input type="url" id="customImageUrlInput" placeholder="https://..." class="full-width-input">
+        
+        <div class="preset-images-label">Preset Samples:</div>
+        <div class="preset-grid">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&q=80" class="preset-img-option">
+          <img src="https://images.unsplash.com/photo-1677442136019-21780efad99a?w=400&q=80" class="preset-img-option">
+          <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?w=400&q=80" class="preset-img-option">
+          <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&q=80" class="preset-img-option">
+        </div>
+
+        <div class="modal-actions">
+          <button id="confirmImageUrlBtn" class="btn btn-primary btn-block">Attach Image</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
